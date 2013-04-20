@@ -5,6 +5,6 @@ module HelloWorld {
         bye: () => void;
     }
     class Controller {
-        constructor ($scope: Scope);
+        constructor($scope: Scope);
     }
 }

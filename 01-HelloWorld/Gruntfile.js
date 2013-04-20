@@ -1,13 +1,13 @@
 module.exports = function(grunt) {
   grunt.initConfig({
     typescript: {
-      app: {
+      base: {
         src: ['app/js/main.ts'],
         dest: 'app/js/main.js',
         options: {
           target: 'es5',
           sourcemap: true,
-          declaration_file: true
+          declaration: true
         }
       },
       test: {
@@ -15,12 +15,11 @@ module.exports = function(grunt) {
         options: {
           target: 'es5',
           sourcemap: true,
-          declaration_file: true
+          declaration: true
         }
       }
     },
-    clean: {
-      src: [
+    clean: [
         '*.log',
         'app/js/*.js',
         'app/js/*.map',
@@ -29,8 +28,7 @@ module.exports = function(grunt) {
         'test/*.map',
         'test_results/*.xml',
         'test_results'
-      ]
-    },
+    ],
     server: {
       port: '8000',
       base: '.'
@@ -55,8 +53,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-typescript');
   grunt.loadNpmTasks('gruntacular');
-  grunt.registerTask('default', 'clean typescript');
-  grunt.registerTask('test', 'clean typescript server testacular');
-  grunt.registerTask('unit-test', 'clean typescript server testacular:unit');
-  grunt.registerTask('e2e-test', 'clean typescript server testacular:e2e');
+  grunt.registerTask('default', ['clean', 'typescript']);
+  grunt.registerTask('test', ['clean', 'typescript', 'server', 'testacular']);
+  grunt.registerTask('unit-test', ['clean', 'typescript', 'server', 'testacular:unit']);
+  grunt.registerTask('e2e-test', ['clean', 'typescript', 'server', 'testacular:e2e']);
 };
